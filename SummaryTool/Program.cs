@@ -1,10 +1,17 @@
-﻿namespace SummaryTool
+﻿using System;
+
+namespace SummaryTool
 {
     internal class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
-            Console.WriteLine("Hello, Worlddd!");
+            var reader = new DocumentReader();
+
+            string input = reader.ReadDocument("voorbeeld.txt");
+            Console.WriteLine("Inhoud van het document:" + input);
+
+            string text = reader.ReadFromConsole();
         }
     }
 }
