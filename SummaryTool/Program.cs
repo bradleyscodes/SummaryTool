@@ -1,17 +1,26 @@
-﻿using System;
+﻿using SummaryTool.Samenvatting;
+using System;
 
 namespace SummaryTool
 {
     internal class Program
     {
-        static void Main()
+        static void Main(string[] args)
         {
-            var reader = new DocumentReader();
+            var reader = new Documenten.DocumentReader();
+            var generator = new Samenvatting.TextGenerator();
+            
+            Console.WriteLine("Enter text to be summarized:");
+            string input = Console.ReadLine();
 
-            string input = reader.ReadDocument("voorbeeld.txt");
-            Console.WriteLine("Inhoud van het document:" + input);
+            // Lees tekst
+            string text = reader.ReadText(input);
 
-            string text = reader.ReadFromConsole();
+            // Maak samenvatting
+            string summary = TextGenerator.GenerateSummary(text);
+
+            Console.WriteLine("Summary:");
+            Console.WriteLine(summary);
         }
     }
 }
