@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 
-namespace SummaryTool.DocumentReader
+namespace SummaryTool.Documenten
 {
     public class DocumentReader
     {
