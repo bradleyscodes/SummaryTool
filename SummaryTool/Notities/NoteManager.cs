@@ -13,7 +13,7 @@ namespace SummaryTool.Notities
         Console.WriteLine("Wil je nog een notitie toevoegen? (j/n)");
         string choice = Console.ReadLine().ToLower();
 
-            if ( choice == "j")
+            if ( choice == "j" || choice == "ja")
             {
                 Console.Write("Voer je notitie in: ");
                 string note = Console.ReadLine();
