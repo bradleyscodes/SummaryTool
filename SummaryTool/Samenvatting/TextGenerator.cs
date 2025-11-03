@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -10,12 +11,13 @@ namespace SummaryTool.Samenvatting
     {
         public string GenerateSummary(string text)
         {
-            if (string.IsNullOrWhiteSpace(text))
-                return "";
+            if (string.IsNullOrEmpty(text))
+            {
+                return "Fout: Geen tekst beschikbaar om samen te vatten.";
+            }
 
-            int length = text.Length / 2;
-            return text.Substring(0, length) + "...";
-
+            int halfLength = text.Length / 2;
+            return text.Substring(0, halfLength) + "(samenvatting)";
+            }
         }
     }
-}

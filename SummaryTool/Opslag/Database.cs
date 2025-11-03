@@ -9,23 +9,32 @@ namespace SummaryTool.Opslag
 {
     public class Database
     {
-        private string storeDocument = "samenvatting.txt";
 
-        // Saves the summary locally
+        private readonly string _fileName = "samenvatting.txt";
+
+        //Slaat de samenvatting (met notities) op in een bestand
         public void SaveSummary(string text)
         {
-            File.WriteAllText(storeDocument, text);
+            File.WriteAllText(_fileName, text);
+            Console.WriteLine($"\nSamenvatting opgeslagen in {_fileName}");
         }
 
-        // Retrieves the saved summary
-
-        public string GetSummary()
+        public void Read()
         {
-            if (File.Exists(storeDocument))
+            if (File.Exists(_fileName))
             {
-                return File.ReadAllText(storeDocument);
+                Console.WriteLine("\n--- Opgeslagen samenvatting ---");
+                Console.WriteLine(File.ReadAllText(_fileName));
+                Console.WriteLine("-------------------------------");
             }
-            return string.Empty;
+            else
+            {
+                Console.WriteLine($"Er is nog geen samenvatting opgeslagen.");
+            }
+
         }
+
+
+
     }
 }
