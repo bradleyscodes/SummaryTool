@@ -10,40 +10,59 @@ namespace SummaryTool
     {
         static void Main(string[] args)
         {
+            Console.WriteLine("Welkom bij SummaryTool!");
+
             var reader = new DocumentReader();
             var generator = new TextGenerator();
-            var notities = new NoteManager();
-            var database = new Database();
+            var notes = new NoteManager();
 
-            Console.WriteLine("Enter text to be summarized:");
-            string input = Console.ReadLine();
+            // Vraag en toon tekst
+            string originalText = reader.ReadText();
 
-            // Read text
-            string text = reader.ReadText(input);
+            // Vraag of gebruiker wil samenvatten
+            Console.WriteLine("Wil je deze tekst samenvatten? (j/n)");
+            string response = Console.ReadLine().ToLower();
 
-            // Generate summary
-            string summary = TextGenerator.GenerateSummary(text);
-
-            Console.WriteLine("Summary:");
-            Console.WriteLine(summary);
-
-            // Optionally add a note
-            Console.WriteLine("Would you like to add a note? (yes/no)");
-            if (Console.ReadLine().ToLower() == "yes")
+            string summary = originalText;
+            if (response == "j")
             {
-                Console.Write("Notitie: ");
-                string note = Console.ReadLine();
-                summary = notities.AddNote(summary, note);
-                Console.WriteLine("Updated Summary with Note:");
+                summary = generator.GenerateSummary(originalText);
+                Console.WriteLine("\n--- Samenvatting --- ");
                 Console.WriteLine(summary);
+                Console.WriteLine("---------------------\n");
             }
 
-            // Save summary
-            database.SaveSummary(summary);
+            // Voeg notities toe
+            summary = notes.AddNotes(summary);
 
-            Console.WriteLine("Summary saved in 'summary.txt'");
-            Console.WriteLine("Press aby key to exit...";
+            Console.WriteLine("\nWat wil je doen met de samenvatting?");
+            Console.WriteLine("1 - Opslaan");
+            Console.WriteLine("2 - Bekijken wat er eerder is opgeslagen");
+            Console.WriteLine("3 - Afsluiten");
+            Console.WriteLine("Keuze: ");
+            string choice = Console.ReadLine();
+
+            switch (choice)
+            {
+                 case "1":
+                    var db = new Database();
+                    db.SaveSummary(summary);
+                    break;
+                case "2":
+                    var dbRead = new Database();
+                    dbRead.Read();
+                    break;
+                case "3":
+                    Console.WriteLine("Programma afgesloten.");
+                    break;
+                default:
+                    Console.WriteLine("Programma afgesloten zonder opslaan.");
+                    break;
+            }
+
+            Console.WriteLine("\nDruk op een toets om af te sluiten...");
             Console.ReadKey();
+
         }
     }
 }

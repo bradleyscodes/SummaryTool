@@ -10,16 +10,22 @@ namespace SummaryTool.Documenten
 {
     public class DocumentReader
     {
-        // Leest tekst uit een bestand
-        public string ReadDocument(string pad)
+        public string ReadText()
         {
-            return File.ReadAllText(pad);
-        }
+            Console.WriteLine("\nVoer de tekst in die je wilt samenvatten:");
+            string input = Console.ReadLine();
 
-        // Leest directe tekstinvoer uit de console
-        public string ReadText(string invoer)
-        {
-            return invoer;
+            if (string.IsNullOrEmpty(input))
+            {
+                Console.WriteLine("Fout: Geen tekst ingevoerd. Probeer het opnieuw.");
+                return string.Empty;
+            }
+
+            Console.WriteLine("\n--- Originele tekst --- ");
+            Console.WriteLine(input);
+            Console.WriteLine("------------------------\n");
+
+            return input;
         }
     }
 
